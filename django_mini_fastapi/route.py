@@ -10,7 +10,6 @@ from typing import (
     Union,
 )
 from string import Formatter
-from collections import OrderedDict
 import re
 
 from pydantic import BaseModel, Field
