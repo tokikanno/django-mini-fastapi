@@ -161,9 +161,21 @@ def run_endpoint_function(*, dependant: Dependant, values: Dict[str, Any]) -> An
     return dependant.call(**values)
 
 
+def _find_headers(response: Response):
+    for k in ("headers", "_headers"):
+        headers = getattr(response, k, None)
+        if headers is not None:
+            return headers
+    else:
+        raise RuntimeError("Cannot find headers attribe from response obj")
+
+
 def apply_sub_response_metadata(response: Response, sub_response: Response):
-    for k, v in sub_response.headers.items():
-        response.headers[k] = v
+    headers = _find_headers(response)
+    sub_headers = _find_headers(sub_response)
+    for k, v in sub_headers.items():
+        headers[k] = v
+
     for k, v in sub_response.cookies.items():
         response.cookies[k] = v
 
