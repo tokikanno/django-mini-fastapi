@@ -1,8 +1,5 @@
-from os import path
 from hashlib import md5
-from datetime import datetime
 from typing import List, Optional
-from django.urls import path as url_path
 
 try:
     from django import setup as django_setup
