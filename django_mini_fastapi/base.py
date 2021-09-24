@@ -27,6 +27,7 @@ class TempResponse(Response):
         super().__init__()
         # set empty status_code
         self.status_code = None
+        self.headers.pop("Content-Type", None)
 
 
 class UploadFile(UploadedFile):

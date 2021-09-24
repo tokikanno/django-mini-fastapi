@@ -14,6 +14,21 @@
                 "--pythonpath=.",
                 "--settings=demo.intro",
             ],
+            "django": true,
+            "justMyCode": false,
+        },
+        {
+            "name": "Test Intro",
+            "type": "python",
+            "request": "launch",
+            "program": "/usr/local/bin/django-admin",
+            "args": [
+                "test",
+                "--pythonpath=.",
+                "--settings=demo.intro",
+                "tests.test_intro"
+            ],
+            "justMyCode": false,
             "django": true
         }
     ]
