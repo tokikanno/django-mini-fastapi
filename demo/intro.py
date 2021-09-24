@@ -39,7 +39,6 @@ ROOT_URLCONF = __name__
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": "memory",
     }
 }
 
