@@ -2,6 +2,7 @@
 A minimal FastAPI implementation for Django !
 
 This project reused more than 95% codes from [FastAPI](https://fastapi.tiangolo.com/)
+
 I just did minimal necessary modifications for letting it works on Django.
 
 # Why do you make this? Can't you just use FastAPI directly?
