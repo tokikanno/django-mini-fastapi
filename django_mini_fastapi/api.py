@@ -125,7 +125,7 @@ class OpenAPI(FastAPI):
         def dispatcher(request: Request, route_path: str):
             route_path = self.root_path + "/" + route_path.strip("/")
             for route in self.router.routes:
-                print(route, route.path)
+                # print(route, route.path)
 
                 # match & parse path parameters
                 path_kwargs: Optional[Dict[str, str]] = route.match_path(route_path)
