@@ -1,7 +1,7 @@
 .PHONY: clean build demo upload-test py3 intro test-intro
 
 clean:
-	rm -rf build dist django_openapi.egg-info
+	rm -rf build dist django_mini_fastapi.egg-info
 
 build:
 	python setup.py sdist bdist_wheel
