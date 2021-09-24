@@ -17,12 +17,8 @@ from pydantic import BaseModel, Field
 from django.utils.encoding import force_text
 
 from .base import Request, Response
-from .cookie import CookieJar
 
-from .enums import (
-    AllowHttpMethodEnum,
-    BodyModelTypeEnum,
-)
+from .enums import AllowHttpMethodEnum
 
 
 class RouteConfig(BaseModel):
