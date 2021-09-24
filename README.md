@@ -1,4 +1,4 @@
-# django-openapi
+# django-mini-fastapi
 A minimal FastAPI implementation for Django !
 
 This project reused more than 95% codes from [FastAPI](https://fastapi.tiangolo.com/)
