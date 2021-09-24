@@ -6,6 +6,13 @@ from django.http import (
 )
 from django.core.files.uploadedfile import UploadedFile
 
+try:
+    from django.http.request import HttpHeaders as Headers
+except ImportError:
+    Headers = dict
+from django.http.request import QueryDict as QueryParams
+from django.http.request import QueryDict as FormData
+
 
 class JSONResponse(JsonResponse):
     media_type = "application/json"

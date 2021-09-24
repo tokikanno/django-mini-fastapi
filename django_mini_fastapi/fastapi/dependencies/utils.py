@@ -58,10 +58,7 @@ from ..mock import BackgroundTasks
 from ..mock import run_in_threadpool
 
 # from starlette.datastructures import FormData, Headers, QueryParams, UploadFile
-from django.http.request import HttpHeaders as Headers
-from django.http.request import QueryDict as QueryParams
-from django.http.request import QueryDict as FormData
-from ...base import UploadFile
+from ...base import UploadFile, Headers, QueryParams, FormData
 
 
 # from starlette.requests import HTTPConnection, Request
