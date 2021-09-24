@@ -27,7 +27,12 @@ class TempResponse(Response):
         super().__init__()
         # set empty status_code
         self.status_code = None
-        self.headers.pop("Content-Type", None)
+
+        # reset headers
+        for k in ("headers", "_headers"):
+            headers = getattr(self, k, None)
+            if headers:
+                setattr(self, k, headers.__class__({}))
 
 
 class UploadFile(UploadedFile):
