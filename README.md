@@ -1,5 +1,6 @@
 # Caution!!!
-This project is in `early developing stage`. So use it at you own risk.
+This project is mainly used on my internal projects and in `early developing stage`. So use it at you own risk.
+
 Bug reports / Fix PRs are welcomed.
 
 
