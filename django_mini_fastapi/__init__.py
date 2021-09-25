@@ -6,3 +6,5 @@ from .base import (
     Session as Session,
 )
 from .fastapi.param_functions import Path, Query, Form, File, Body, Header, Cookie
+from .fastapi.routing import APIRoute as APIRoute
+from .fastapi.routing import APIRouter as APIRouter
