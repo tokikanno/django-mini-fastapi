@@ -12,6 +12,7 @@ except ImportError:
     Headers = dict
 from django.http.request import QueryDict as QueryParams
 from django.http.request import QueryDict as FormData
+from django.contrib.sessions.backends.base import SessionBase as Session
 
 
 class JSONResponse(JsonResponse):

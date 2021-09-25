@@ -58,7 +58,7 @@ from ..mock import BackgroundTasks
 from ..mock import run_in_threadpool
 
 # from starlette.datastructures import FormData, Headers, QueryParams, UploadFile
-from ...base import UploadFile, Headers, QueryParams, FormData
+from ...base import UploadFile, Headers, QueryParams, FormData, Session
 
 
 # from starlette.requests import HTTPConnection, Request
@@ -354,6 +354,9 @@ def add_non_field_param_to_dependency(
     if lenient_issubclass(param.annotation, Request):
         dependant.request_param_name = param.name
         return True
+    if lenient_issubclass(param.annotation, Session):
+        dependant.session_param_name = param.name
+        return True
     elif lenient_issubclass(param.annotation, WebSocket):
         dependant.websocket_param_name = param.name
         return True
@@ -583,8 +586,11 @@ def solve_dependencies(
         errors.extend(body_errors)
     if dependant.http_connection_param_name:
         values[dependant.http_connection_param_name] = request
-    if dependant.request_param_name and isinstance(request, Request):
-        values[dependant.request_param_name] = request
+    if isinstance(request, Request):
+        if dependant.request_param_name:
+            values[dependant.request_param_name] = request
+        if dependant.session_param_name:
+            values[dependant.session_param_name] = getattr(request, "session", None)
     elif dependant.websocket_param_name and isinstance(request, WebSocket):
         values[dependant.websocket_param_name] = request
     if dependant.background_tasks_param_name:
