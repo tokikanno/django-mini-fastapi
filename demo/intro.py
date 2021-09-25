@@ -373,38 +373,38 @@ def accessing_special_raw_variables(
     }
 
 
-# @api.post(
-#     '/other_argument_data_sources',
-#     tags=['1. Basic HTTP requests'],
-#     summary='Other argument data sources',
-# )
-# def other_argument_data_sources(
-#     test_cookie=Cookie(), content_type=Header(), http_referer=Header()
-# ):
-#     '''
-# You can also get your request arguments from other data sources.
+@api.post(
+    "/other_argument_data_sources",
+    tags=["1. Basic HTTP requests"],
+    summary="Other argument data sources",
+)
+def other_argument_data_sources(
+    test_cookie=Cookie(...), referer=Header(...), x_api_token=Header(...)
+):
+    """
+    You can also get your request arguments from other data sources.
 
-# Like: `Header()`, `Cookie()`
+    Like: `Header()`, `Cookie()`
 
-# * *Note: While accessing via `Header()`, all variable name will converted to uppercase as http header key name*
-# * *e.g.: `content_type` -> `CONTENT_TYPE`
+    * *Note: While accessing via `Header()`, all variable name will converted to uppercase as http header key name*
+    * *e.g.: `content_type` -> `CONTENT_TYPE`
 
-# ```python
-# @api.post(
-#     '/other_argument_data_sources',
-# )
-# def other_argument_data_sources(
-#     test_cookie=Cookie(), content_type=Header(), http_referer=Header()
-# ):
-#     return {
-#         'test_cookie': test_cookie,
-#         'content_type': content_type,
-#         'referrer': http_referer,
-#     }
-# ```
-#     '''
-#     return {
-#         'test_cookie': test_cookie,
-#         'content_type': content_type,
-#         'referrer': http_referer,
-#     }
+    ```python
+    @api.post(
+        '/other_argument_data_sources',
+    )
+    def other_argument_data_sources(
+        test_cookie=Cookie(...), referer=Header(...), x_api_token=Header(...)
+    ):
+        return {
+            "test_cookie": test_cookie,
+            "x_api_token": x_api_token,
+            "referer": referer,
+        }
+    ```
+    """
+    return {
+        "test_cookie": test_cookie,
+        "x_api_token": x_api_token,
+        "referer": referer,
+    }
