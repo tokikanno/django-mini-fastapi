@@ -36,6 +36,10 @@
 		"ms-python.vscode-pylance"
 	],
 
+	"mounts": [
+		"source=${localEnv:HOME},target=/home/vscode,type=bind,consistency=cached"
+	],
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
