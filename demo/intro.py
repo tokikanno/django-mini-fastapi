@@ -1,6 +1,5 @@
 from datetime import datetime
 from hashlib import md5
-from logging import currentframe
 from typing import List, Optional
 
 try:
