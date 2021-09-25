@@ -1,9 +1,81 @@
-# django-mini-fastapi
+# Caution!!!
+This project is in `early developing stage`. So use it at you own risk.
+Bug reports / Fix PRs are welcomed.
+
+
+# What is `django-mini-fastapi` ?
 A minimal FastAPI implementation for Django !
 
-This project reused more than 95% codes from [FastAPI](https://fastapi.tiangolo.com/)
+This project reused more than 95% codes from [FastAPI](https://fastapi.tiangolo.com/). I just did minimal necessary modifications for making it working under Django.
 
-I just did minimal necessary modifications for making it working under Django.
+So basicly you can read documents from FastAPI for knowing how to use this module. (Except features metioned in `Features currently not work` section)
+The difference between django-mini-fastapi and FastAPI is how you import and mount it.
+
+
+```python
+# This is how you declear OpenAPI endpoint in FastAPI
+from typing import Optional
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
+```
+
+Above is the quick start sample in FastAPI document, which should be re-written like below
+
+
+```python
+# This is how you do the same thing in django-mini-fastapi
+from typing import Optional
+from django_mini_fastapi import OpenAPI
+
+app = OpenAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
+```
+
+And you should mount the API endpoint via Django url pattern mechanism by calling `app.as_django_url_pattern()`
+
+```python
+urlpatterns = [
+    # use as_django_url_pattern() for mounting API endpoint into Django url parser
+    app.as_django_url_pattern(),
+]
+```
+
+And usually you won't want to mount API endpoint in `/` for a Django project. You could pass the `root_path` parameter to OpenAPI init function for changing the mount point.
+
+```python
+app = OpenAPI(root_path='/api')
+```
+
+For fully working example script, please see `demo/intro.py`
+
+You can also type
+
+```sh
+make intro
+```
+
+for starting test intro server.
+
 
 # Why do you make this? Can't you just use FastAPI directly?
 I'm a big fan of FastAPI. It's elegant and saves lots of doc maintaince & API spec communication costs for me.
@@ -20,8 +92,8 @@ People who like the way FastAPI works but don't want to do full system rewrite f
 * Auto request parameter validation
 
 # Features currently not work
-* Security scopes (On TODO list)
-* Dependencies system (On TODO list)
-* Callback function delcearation (On TODO list)
+* Security scopes (TODO)
+* Dependencies system (TODO)
+* Callback function delcearation (TODO)
 * WebSocket endpoints (Not in priority)
 * Backgournd tasks (Not in priority)
