@@ -1,6 +1,5 @@
-import asyncio
+# import asyncio
 import dataclasses
-from django_mini_fastapi.fastapi import mock
 import inspect
 from contextlib import contextmanager
 from copy import deepcopy
@@ -613,12 +612,18 @@ def request_params_to_args(
     values = {}
     errors = []
     for field in required_params:
+        if isinstance(field.field_info, params.Header):
+            alias = f"HTTP_{field.alias.replace('-', '_').upper()}"
+        else:
+            alias = field.alias
+
         if is_scalar_sequence_field(field) and isinstance(
             received_params, (QueryParams, Headers)
         ):
-            value = received_params.getlist(field.alias) or field.default
+            value = received_params.getlist(alias) or field.default
         else:
-            value = received_params.get(field.alias)
+            value = received_params.get(alias)
+
         field_info = field.field_info
         assert isinstance(
             field_info, params.Param
