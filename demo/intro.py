@@ -1,4 +1,6 @@
+from datetime import datetime
 from hashlib import md5
+from logging import currentframe
 from typing import List, Optional
 
 try:
@@ -22,6 +24,9 @@ from django_mini_fastapi import (
     UploadFile,
     Cookie,
     Header,
+    Request,
+    Session,
+    Response,
 )
 
 
@@ -38,6 +43,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
     }
 }
+
+MIDDLEWARE = [
+    "django.contrib.sessions.middleware.SessionMiddleware",
+]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 
 django_setup()
@@ -307,51 +318,59 @@ def post_request_with_json_schema_body(payload: SamplePayload):
     return {"obj": payload, "ary": [payload, payload]}
 
 
-# @api.post(
-#     '/some_special_variables_by_name',
-#     tags=['1. Basic HTTP requests'],
-#     summary='Some special variables',
-# )
-# def some_special_variables_by_name(request, session, cookie_jar):
-#     '''
-# You could access some special variables via your function parameter name.
+@api.post(
+    "/accessing_special_raw_variables",
+    tags=["1. Basic HTTP requests"],
+    summary="Some special variables",
+)
+def accessing_special_raw_variables(
+    request: Request, session: Session, response: Response
+):
+    """
+    You could access some special variables via your function parameter type.
 
-# * `request`
+    * `django_mini_fast_api.Request`
 
-#   * the django `HttpRequest` object
+      * For accessing the raw django `HttpRequest` object
 
-# * `session`
+    * `django_mini_fast_api.Session`
 
-#   * the session object binded on request
+      * django session object binded on request
 
-# * `cookie_jar`
+    * ``django_mini_fast_api.Response``
 
-#   * if you want to set/del cookies on the response object, you must use cookie_jar
-#   * cookie_jar is a proxy object to real HttpResponse object. The `set_cookie()`, `delete_cookie()` functions on it have the same signatures of HttpResonse.
+      * A temp empty response for manipulating/overriding status code / headers / cookies on the final response object
 
-# ```python
-# @api.get(
-#     '/some_special_variables_by_name',
-# )
-# def some_special_variables_by_name(request, session, cookie_jar):
+    ```python
+    @api.get(
+        '/accessing_special_raw_variables',
+    )
+    def accessing_special_raw_variables(request: Request, session: Session, response: Response):
 
-#     # this has the same signature as django HTTPResponse.set_cookie() function
-#     cookie_jar.set_cookie('test_cookie', str(datetime.now()))
+        current_dt_str = str(datetime.now())
+        response.set_cookie("test_cookie", current_dt_str)
+        response["X-TEST-HEADER"] = current_dt_str
 
-#     return {
-#         'request': request,
-#         'session': session,
-#     }
-# ```
-#     '''
+        session["ts"] = current_dt_str
+        session.save()
 
-#     # this has the same signature as django HTTPResponse.set_cookie() function
-#     cookie_jar.set_cookie('test_cookie', str(datetime.now()))
+        return {
+            'request': request,
+            'session': session,
+        }
+    ```
+    """
+    current_dt_str = str(datetime.now())
+    response.set_cookie("test_cookie", current_dt_str)
+    response["X-TEST-HEADER"] = current_dt_str
 
-#     return {
-#         'request': repr(request),
-#         'session': session,
-#     }
+    session["ts"] = current_dt_str
+    session.save()
+
+    return {
+        "request": repr(request),
+        "session": session,
+    }
 
 
 # @api.post(
