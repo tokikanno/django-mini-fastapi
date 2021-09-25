@@ -6,7 +6,18 @@ build-backend = "flit_core.buildapi"
 name = "django_mini_fastapi"
 authors = [{name = "toki", email = "toki.kanno@gmail.com"}]
 readme = "README.md"
-classifiers = ["License :: OSI Approved :: MIT License"]
+classifiers = [
+    "License :: OSI Approved :: MIT License"
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Framework :: Django",
+    "Environment :: Web Environment",
+    "Operating System :: OS Independent",
+    "Development Status :: 2 - Pre-Alpha",
+]
 dynamic = ["version", "description"]
 
 [project.urls]
