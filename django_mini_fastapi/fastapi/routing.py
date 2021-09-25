@@ -171,6 +171,7 @@ def _find_headers(response: Response):
 
 
 def apply_sub_response_metadata(response: Response, sub_response: Response):
+    # different versions of Django has different names for manipulating headers
     headers = _find_headers(response)
     sub_headers = _find_headers(sub_response)
     for k, v in sub_headers.items():
