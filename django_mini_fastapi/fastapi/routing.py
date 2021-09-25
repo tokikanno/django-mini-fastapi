@@ -734,10 +734,10 @@ class APIRouter(Router):
                 self.add_websocket_route(
                     prefix + route.path, route.endpoint, name=route.name
                 )
-        for handler in router.on_startup:
-            self.add_event_handler("startup", handler)
-        for handler in router.on_shutdown:
-            self.add_event_handler("shutdown", handler)
+        # for handler in router.on_startup:
+        #     self.add_event_handler("startup", handler)
+        # for handler in router.on_shutdown:
+        #     self.add_event_handler("shutdown", handler)
 
     def get(
         self,
