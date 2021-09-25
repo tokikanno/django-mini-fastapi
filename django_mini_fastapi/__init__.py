@@ -1,3 +1,8 @@
+"""Minimal FastAPI implementation for Django"""
+
+__version__ = "0.1"
+
+
 from .api import OpenAPI as OpenAPI
 from .base import (
     Request as Request,
