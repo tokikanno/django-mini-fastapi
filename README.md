@@ -91,11 +91,11 @@ People who like the way FastAPI works but don't want to do full system rewrite f
 # Features currently work
 * Auto OpenAPI schema/document generation from Python function declaration
 * Auto request parameter validation
+* Dependencies system
 
 # Features currently not work
-* Auto OpenAPI parameters parsing & processing 
-  * Security scopes (TODO)
-  * Dependencies system (TODO)
-  * Callback function delcearation (TODO)
+* Auto OpenAPI parameters parsing & processing
+  * Callback function delcearation (WIP)
+  * Security scopes (Evaluating/Planning)
 * WebSocket endpoints (Not in priority)
 * Backgournd tasks (Not in priority)
