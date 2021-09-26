@@ -93,8 +93,9 @@ People who like the way FastAPI works but don't want to do full system rewrite f
 * Auto request parameter validation
 
 # Features currently not work
-* Security scopes (TODO)
-* Dependencies system (TODO)
-* Callback function delcearation (TODO)
+* Auto OpenAPI parameters parsing & processing 
+  * Security scopes (TODO)
+  * Dependencies system (TODO)
+  * Callback function delcearation (TODO)
 * WebSocket endpoints (Not in priority)
 * Backgournd tasks (Not in priority)
