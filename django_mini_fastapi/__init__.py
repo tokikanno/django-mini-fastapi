@@ -10,6 +10,15 @@ from .base import (
     UploadFile as UploadFile,
     Session as Session,
 )
-from .fastapi.param_functions import Path, Query, Form, File, Body, Header, Cookie
+from .fastapi.param_functions import (
+    Path as Path,
+    Query as Query,
+    Form as Form,
+    File as File,
+    Body as Body,
+    Header as Header,
+    Cookie as Cookie,
+    Depends as Depends,
+)
 from .fastapi.routing import APIRoute as APIRoute
 from .fastapi.routing import APIRouter as APIRouter

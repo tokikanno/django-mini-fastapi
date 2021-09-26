@@ -2,6 +2,8 @@ from datetime import datetime
 from hashlib import md5
 from typing import List, Optional
 
+from django.http.response import Http404
+
 try:
     from django import setup as django_setup
 except ImportError:
@@ -26,6 +28,7 @@ from django_mini_fastapi import (
     Request,
     Session,
     Response,
+    Depends,
 )
 
 
@@ -407,3 +410,73 @@ def other_argument_data_sources(
         "x_api_token": x_api_token,
         "referer": referer,
     }
+
+
+class Pagination(BaseModel):
+    page: int
+    limit: int
+
+
+def get_pagination(page: int = Query(1, ge=1), limit: int = Query(20, ge=0)):
+    return Pagination(page=page, limit=limit)
+
+
+@api.get(
+    "/basic_dependencies",
+    tags=["2. Dependencies"],
+    summary="Basic dependencies sample",
+)
+def basic_dependencies(pagination: Pagination = Depends(get_pagination)):
+    """
+    For common operations across multiple API endpoints, you could use Depends() for merging them into single dependency functions
+
+    For example:
+    You need to parse pagination info on each API endpoint, you could write a `get_pagination` function and let your API endpoint `Depends()` on it.
+
+    ```python
+    class Pagination(BaseModel):
+        page: int
+        limit: int
+
+    def get_pagination(page: int = Query(1, ge=1), limit: int = Query(20, ge=0)):
+        return Pagination(page=page, limit=limit)
+
+    @api.get("/basic_dependencies")
+    def basic_dependencies(
+        pagination: Pagination = Depends(get_pagination)
+    ):
+        return {"pagination": pagination}
+    ```
+    """
+    return {"pagination": pagination}
+
+
+def check_api_key(x_api_key: str = Header(...)):
+    if x_api_key != "kamehame":
+        raise Http404
+
+
+@api.get(
+    "/non_return_dependencies",
+    tags=["2. Dependencies"],
+    summary="Dependencies without return value",
+    dependencies=[Depends(check_api_key)],
+)
+def non_return_dependencies():
+    """
+    For dependencies only need to be executed but needn't to return any values, you could declear it
+
+    For example:
+    You need to parse pagination info on each API endpoint, you could write a `get_pagination` function and let your API endpoint `Depends()` on it.
+
+    ```python
+    def check_api_key(x_api_key: str = Header(...)):
+        if x_api_key != "kamehame":
+            raise Http404
+
+    @api.get("/non_return_dependencies", dependencies=[Depends(check_api_key)],)
+    def non_return_dependencies():
+        return {"msg": "You have correct API key!"}
+    ```
+    """
+    return {"msg": "You have correct API key!"}
