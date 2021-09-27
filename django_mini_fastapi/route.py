@@ -29,23 +29,6 @@ class RouteConfig(BaseModel):
     tags: List[str]
 
 
-class ValidationErrorItem(BaseModel):
-    loc: List[str]
-    msg: str
-    type: str
-
-
-class ValidationErrorResponse(BaseModel):
-    detail: List[ValidationErrorItem]
-
-
-class PathNotFullfilled(Exception):
-    pass
-
-
-PATH_NOT_FULL_FILLED = object()
-
-
 class RoutePath(object):
     def __init__(self, route_path: str):
         route_path = force_text(route_path)
