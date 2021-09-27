@@ -464,10 +464,10 @@ def check_api_key(x_api_key: str = Header(...)):
 )
 def non_return_dependencies():
     """
-    For dependencies only need to be executed but needn't to return any values, you could declear it
+    For dependencies only need to be executed but needn't to return any values, you could declear it in API endpoint declaration function with `dependencies=` keyword argument
 
     For example:
-    You need to parse pagination info on each API endpoint, you could write a `get_pagination` function and let your API endpoint `Depends()` on it.
+    You need to check API key on every API endpoint, you could write a `check_api_key` function put into API endpoint's (even router) dependencies
 
     ```python
     def check_api_key(x_api_key: str = Header(...)):
