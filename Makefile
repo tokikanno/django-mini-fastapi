@@ -19,7 +19,7 @@ test-intro:
 	django-admin test --pythonpath=. --settings=demo.intro tests.test_intro
 
 upload-prod:
-	twine upload -u __token__ dist/*
+	flit publish --repository real-pypi
 
 upload-test:
-	twine upload -u __token__ --repository testpypi dist/*
+	flit publish --repository real-pypi
