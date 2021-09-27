@@ -185,7 +185,6 @@ def get_request_with_json_schema_query_args(
     """
     ```python
     from django_mini_fastapi import Query
-    from django_mini_fastapi.schema import StringField, NumberField, BooleanField
 
     @api.get('/get_request_with_json_schema_query_args')
     def get_request_with_json_schema_query_args(
