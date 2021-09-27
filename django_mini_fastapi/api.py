@@ -124,26 +124,39 @@ class OpenAPI(FastAPI):
         @csrf_exempt
         def dispatcher(request: Request, route_path: str):
             route_path = self.root_path + "/" + route_path.strip("/")
-            for route in self.router.routes:
-                # print(route, route.path)
 
-                # match & parse path parameters
+            matched_route = None
+            matched_route_path_kwargs = None
+            method_not_allowed_routes: List[BaseRoute] = []
+
+            for route in self.router.routes:
                 path_kwargs: Optional[Dict[str, str]] = route.match_path(route_path)
+
+                # path regex not matched
                 if path_kwargs is None:
                     continue
 
-                if not route.check_method_allowed(request.method):
-                    return HttpResponseNotAllowed(route.methods)
-
-                request.path_kwargs = path_kwargs
-                try:
-                    return route(request)
-                except Exception as e:
-                    exc_handler = self.exception_handlers.get(type(e))
-                    if exc_handler:
-                        return exc_handler(request, e)
-                    raise e
+                # found 1st full matched route, break here
+                if route.check_method_allowed(request.method):
+                    matched_route = route
+                    matched_route_path_kwargs = path_kwargs
+                    break
+                else:
+                    method_not_allowed_routes.append(route)
             else:
-                raise Http404
+                # no break after scanned all routes
+                if method_not_allowed_routes:
+                    return HttpResponseNotAllowed(method_not_allowed_routes[0].methods)
+                else:
+                    raise Http404
+
+            request.path_kwargs = matched_route_path_kwargs
+            try:
+                return matched_route(request)
+            except Exception as e:
+                exc_handler = self.exception_handlers.get(type(e))
+                if exc_handler:
+                    return exc_handler(request, e)
+                raise e
 
         return dispatcher
