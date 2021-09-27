@@ -3,17 +3,17 @@
 clean:
 	rm -rf build dist django_mini_fastapi.egg-info
 
-build:
-	python setup.py sdist bdist_wheel
+# build:
+# 	python setup.py sdist bdist_wheel
 
-demo:
-	django-admin runserver --pythonpath=. --settings=demo.app
+# demo:
+# 	django-admin runserver --pythonpath=. --settings=demo.app
 
 intro:
 	django-admin runserver --pythonpath=. --settings=demo.intro
 
-py3:
-	django-admin runserver --pythonpath=. --settings=demo.py3
+# py3:
+# 	django-admin runserver --pythonpath=. --settings=demo.py3
 
 test-intro:
 	django-admin test --pythonpath=. --settings=demo.intro tests.test_intro
