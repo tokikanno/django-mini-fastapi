@@ -243,7 +243,6 @@ def post_request_file_upload(
     ```python
     from hashlib import md5
     from django_mini_fastapi import UploadedFile, Form, File
-    from django_mini_fastapi.schema import StringField, NumberField, BooleanField
 
     @api.post('/post_request_file_upload')
     def post_request_file_upload(
