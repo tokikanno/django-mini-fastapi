@@ -190,7 +190,7 @@ def get_request_with_json_schema_query_args(
     @api.get('/get_request_with_json_schema_query_args')
     def get_request_with_json_schema_query_args(
         arg1: str = Query(..., min_length=3, max_length=10),
-        arg2: int = Query(ge=0, le=10),
+        arg2: int = Query(..., ge=0, le=10),
         arg3: bool = Query(False),
     ):
         return dict(arg1=arg1, arg2=arg2, arg3=arg3)
