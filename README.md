@@ -67,7 +67,7 @@ And usually you won't want to mount API endpoint in `/` for a Django project. Yo
 app = OpenAPI(root_path='/api')
 ```
 
-For fully working example script, please see `demo/intro.py`
+For fully working example script, please see [demo/intro.py](https://github.com/tokikanno/django-mini-fastapi/blob/master/demo/intro.py)
 
 You can also type
 
