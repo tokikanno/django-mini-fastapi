@@ -151,7 +151,7 @@ def test_path_and_query_parameters(
 @api.get(
     "/basic_check_on_path_or_query_parameter/{arg1}",
     tags=["1. Basic HTTP requests"],
-    summary="Define query string parameters",
+    summary="Validate query string parameters",
     response_model=IntroResponse1,
 )
 def basic_check_on_path_or_query_parameter(
