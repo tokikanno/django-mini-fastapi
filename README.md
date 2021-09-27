@@ -4,6 +4,13 @@ This project is mainly used on my internal projects and in `early developing sta
 Bug reports / Fix PRs are welcomed.
 
 
+# Installation
+
+```sh
+pip install django-mini-fastapi
+```
+
+
 # What is `django-mini-fastapi` ?
 A minimal FastAPI implementation for Django !
 
