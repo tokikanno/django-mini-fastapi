@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponseNotAllowed
 
 from .fastapi import FastAPI
 from .fastapi.params import Depends
+from .fastapi.exceptions import HTTPException
 from .fastapi.datastructures import Default
 from .base import HTMLResponse, Request, Response, JSONResponse
 from .route import BaseRoute
@@ -129,30 +130,31 @@ class OpenAPI(FastAPI):
             matched_route_path_kwargs = None
             method_not_allowed_routes: List[BaseRoute] = []
 
-            for route in self.router.routes:
-                path_kwargs: Optional[Dict[str, str]] = route.match_path(route_path)
-
-                # path regex not matched
-                if path_kwargs is None:
-                    continue
-
-                # found 1st full matched route, break here
-                if route.check_method_allowed(request.method):
-                    matched_route = route
-                    matched_route_path_kwargs = path_kwargs
-                    break
-                else:
-                    method_not_allowed_routes.append(route)
-            else:
-                # no break after scanned all routes
-                if method_not_allowed_routes:
-                    return HttpResponseNotAllowed(method_not_allowed_routes[0].methods)
-                else:
-                    raise Http404
-
-            request.path_kwargs = matched_route_path_kwargs
             try:
+                for route in self.router.routes:
+                    path_kwargs: Optional[Dict[str, str]] = route.match_path(route_path)
+
+                    # path regex not matched
+                    if path_kwargs is None:
+                        continue
+
+                    # found 1st full matched route, break here
+                    if route.check_method_allowed(request.method):
+                        matched_route = route
+                        matched_route_path_kwargs = path_kwargs
+                        break
+                    else:
+                        method_not_allowed_routes.append(route)
+                else:
+                    # no break after scanned all routes
+                    if method_not_allowed_routes:
+                        raise HTTPException(405)
+                    else:
+                        raise HTTPException(404)
+
+                request.path_kwargs = matched_route_path_kwargs
                 return matched_route(request)
+
             except Exception as e:
                 exc_handler = self.exception_handlers.get(type(e))
                 if exc_handler:
