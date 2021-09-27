@@ -13,7 +13,7 @@ HTTP_422_UNPROCESSABLE_ENTITY = int(HTTPStatus.UNPROCESSABLE_ENTITY)
 from ..base import Request, JSONResponse
 
 
-async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
+def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
     headers = getattr(exc, "headers", None)
     if headers:
         return JSONResponse(
