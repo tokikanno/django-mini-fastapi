@@ -22,3 +22,5 @@ from .fastapi.param_functions import (
 )
 from .fastapi.routing import APIRoute as APIRoute
 from .fastapi.routing import APIRouter as APIRouter
+
+from .fastapi.exceptions import HTTPException as HTTPException
