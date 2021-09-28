@@ -22,4 +22,4 @@ upload-prod:
 	flit publish --repository real-pypi
 
 upload-test:
-	flit publish --repository pypi
+	flit publish
