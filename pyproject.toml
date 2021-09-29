@@ -3,7 +3,7 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "django_mini_fastapi"
+name = "django-mini-fastapi"
 authors = [{name = "toki", email = "toki.kanno@gmail.com"}]
 readme = "README.md"
 classifiers = [
@@ -27,3 +27,7 @@ dependencies = [
 
 [project.urls]
 Home = "https://github.com/tokikanno/django-mini-fastapi"
+
+
+[tool.flit.module]
+name = "django_mini_fastapi"
