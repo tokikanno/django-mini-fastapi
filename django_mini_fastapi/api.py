@@ -162,3 +162,12 @@ class OpenAPI(FastAPI):
                 raise e
 
         return dispatcher
+
+    def add_exception_handler(self, exc_cls: Type[Exception], fn: Callable):
+        self.exception_handlers[exc_cls] = fn
+
+    def exception_handler(self, exc_cls: Type[Exception]) -> Callable:
+        def _decorated(fn: Callable) -> Callable:
+            self.add_exception_handler(exc_cls=exc_cls, fn=fn)
+
+        return _decorated
