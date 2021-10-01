@@ -31,11 +31,13 @@ class Param(FieldInfo):
         example: Any = Undefined,
         examples: Optional[Dict[str, Any]] = None,
         deprecated: Optional[bool] = None,
+        include_in_schema: bool = True,
         **extra: Any,
     ):
         self.deprecated = deprecated
         self.example = example
         self.examples = examples
+        self.include_in_schema = include_in_schema
         super().__init__(
             default,
             alias=alias,
@@ -117,6 +119,7 @@ class Query(Param):
         example: Any = Undefined,
         examples: Optional[Dict[str, Any]] = None,
         deprecated: Optional[bool] = None,
+        include_in_schema: bool = True,
         **extra: Any,
     ):
         super().__init__(
@@ -134,6 +137,7 @@ class Query(Param):
             deprecated=deprecated,
             example=example,
             examples=examples,
+            include_in_schema=include_in_schema,
             **extra,
         )
 
@@ -159,6 +163,7 @@ class Header(Param):
         example: Any = Undefined,
         examples: Optional[Dict[str, Any]] = None,
         deprecated: Optional[bool] = None,
+        include_in_schema: bool = True,
         **extra: Any,
     ):
         self.convert_underscores = convert_underscores
@@ -177,6 +182,7 @@ class Header(Param):
             deprecated=deprecated,
             example=example,
             examples=examples,
+            include_in_schema=include_in_schema,
             **extra,
         )
 
@@ -201,6 +207,7 @@ class Cookie(Param):
         example: Any = Undefined,
         examples: Optional[Dict[str, Any]] = None,
         deprecated: Optional[bool] = None,
+        include_in_schema: bool = True,
         **extra: Any,
     ):
         super().__init__(
@@ -218,6 +225,7 @@ class Cookie(Param):
             deprecated=deprecated,
             example=example,
             examples=examples,
+            include_in_schema=include_in_schema,
             **extra,
         )
 
