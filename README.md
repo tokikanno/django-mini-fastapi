@@ -10,6 +10,19 @@ Bug reports / Fix PRs are welcomed.
 pip install django-mini-fastapi
 ```
 
+# Live demo provided by Gitpod
+
+Click the button below and launch a free live demo server via Gitpod
+
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/tokikanno/django-mini-fastapi)
+
+If the button doesn't show up, you clould also use below link directly
+
+[https://gitpod.io/#https://github.com/tokikanno/django-mini-fastapi](https://gitpod.io/#https://github.com/tokikanno/django-mini-fastapi)
+
+After Gitpod launched, if you see a dialog with the `Open Browser` button then you will get to the quick intro live demo server.
+
+
 
 # What is `django-mini-fastapi` ?
 A minimal FastAPI implementation for Django !
