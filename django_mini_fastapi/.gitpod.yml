@@ -1,0 +1,7 @@
+ports:
+  - port: 8000
+    onOpen: open-browser
+
+tasks:
+  - init: pip install "django>=2.2" "pydantic>=1.8.2" "flit" "ipython"
+    command: make intro
