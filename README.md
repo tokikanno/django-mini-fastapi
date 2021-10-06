@@ -23,7 +23,7 @@ If the button doesn't show up, you clould also use below link directly
 After Gitpod launched, wait a while for the auto execution of `make intro` command
 Then you could using VScode remote explorer for opening the intro demo server in your browser.
 
-![image](https://raw.githubusercontent.com/tokikanno/django-openapi/master/docs/images/gitpod-remote-explorer.png) 
+![image](https://raw.githubusercontent.com/tokikanno/django-mini-fastapi/master/docs/images/gitpod-remote-explorer.png) 
 
 
 
