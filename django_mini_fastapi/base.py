@@ -1,4 +1,5 @@
-from typing import Any, Callable, Iterable, Type
+from json.encoder import JSONEncoder
+from typing import Any, Callable, Dict, Iterable, Optional, Type
 from django.http import (
     HttpRequest as Request,
     HttpResponse as Response,
@@ -13,10 +14,27 @@ except ImportError:
 from django.http.request import QueryDict as QueryParams
 from django.http.request import QueryDict as FormData
 from django.contrib.sessions.backends.base import SessionBase as Session
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 class JSONResponse(JsonResponse):
     media_type = "application/json"
+
+    def __init__(
+        self,
+        data: Any,
+        encoder: Type[JSONEncoder] = DjangoJSONEncoder,
+        safe: bool = False,  # default safe = False for list type payloads
+        json_dumps_params: Optional[Dict[str, Any]] = None,
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(
+            data,
+            encoder=encoder,
+            safe=safe,
+            json_dumps_params=json_dumps_params,
+            **kwargs,
+        )
 
 
 class HTMLResponse(Response):
