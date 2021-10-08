@@ -20,7 +20,10 @@ If the button doesn't show up, you clould also use below link directly
 
 [https://gitpod.io/#https://github.com/tokikanno/django-mini-fastapi](https://gitpod.io/#https://github.com/tokikanno/django-mini-fastapi)
 
-After Gitpod launched, if you see a dialog with the `Open Browser` button then you will get to the quick intro live demo server.
+After Gitpod launched, wait a while for the auto execution of `make intro` command
+Then you could using VScode remote explorer for opening the intro demo server in your browser.
+
+![image](https://raw.githubusercontent.com/tokikanno/django-mini-fastapi/master/docs/images/gitpod-remote-explorer.png) 
 
 
 
