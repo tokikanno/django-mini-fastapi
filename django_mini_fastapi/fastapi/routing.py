@@ -251,8 +251,9 @@ def get_request_handler(
             raw_response = run_endpoint_function(dependant=dependant, values=values)
 
             if isinstance(raw_response, Response):
-                if raw_response.background is None:
-                    raw_response.background = background_tasks
+                # NOTE: disable background task check
+                # if raw_response.background is None:
+                #     raw_response.background = background_tasks
                 return raw_response
             response_data = serialize_response(
                 field=response_field,
