@@ -1,6 +1,6 @@
 from typing import Any, Callable, Coroutine, Dict, List, Optional, Sequence, Type, Union
 
-from django.conf.urls import url
+from django.urls import re_path
 from django.views.decorators.csrf import csrf_exempt
 from django.http import Http404, HttpResponseNotAllowed
 
@@ -114,7 +114,7 @@ class OpenAPI(FastAPI):
             self.add_route(self.rapidoc_url, rapi_doc_html, include_in_schema=False)
 
     def as_django_url_pattern(self):
-        return url(
+        return re_path(
             "^{prefix_path}/(?P<route_path>.*)".format(
                 prefix_path=self.root_path.strip("/")
             ),
