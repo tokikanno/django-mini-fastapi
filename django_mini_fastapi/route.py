@@ -14,7 +14,7 @@ import re
 
 from pydantic import BaseModel, Field
 
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from .base import Request, Response
 
@@ -31,7 +31,7 @@ class RouteConfig(BaseModel):
 
 class RoutePath(object):
     def __init__(self, route_path: str):
-        route_path = force_text(route_path)
+        route_path = force_str(route_path)
         assert route_path.startswith("/")
 
         self.org_route_path = route_path
