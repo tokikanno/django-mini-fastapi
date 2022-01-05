@@ -13,7 +13,7 @@ except ImportError:
 
 
 from django.http import HttpResponseRedirect
-from django.conf.urls import url
+from django.urls import re_path
 from pydantic import BaseModel, Field
 from django_mini_fastapi import (
     OpenAPI,
@@ -70,7 +70,7 @@ api = OpenAPI(
 )
 
 urlpatterns = [
-    url(r"^$", redirect_to_doc),
+    re_path(r"^$", redirect_to_doc),
     api.as_django_url_pattern(),
 ]
 
