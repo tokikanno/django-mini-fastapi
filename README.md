@@ -121,4 +121,4 @@ People who like the way FastAPI works but don't want to do full system rewrite f
   * Callback function delcearation (WIP)
   * Security scopes (Evaluating/Planning)
 * WebSocket endpoints (Not in priority)
-* Backgournd tasks (Not in priority)
+* Backgournd tasks (Not in priority, we still use celery even using the real FastAPI. Background task execution function in FastAPI isn't very suitable for serious tasks.)
