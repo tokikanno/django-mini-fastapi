@@ -33,7 +33,7 @@ A minimal FastAPI implementation for Django !
 This project reused more than 95% codes from [FastAPI](https://fastapi.tiangolo.com/). I just did minimal necessary modifications for making it working under Django.
 
 So basicly you can read documents from FastAPI for knowing how to use this module. (Except features metioned in `Features currently not work` section)
-The difference between django-mini-fastapi and FastAPI is how you import and mount it.
+The major difference between django-mini-fastapi and FastAPI is how you import and mount it.
 
 
 ```python
