@@ -1,8 +1,9 @@
 # Caution!!!
-This project is in `early developing stage`. So use it at you own risk.
+This is a minimal FastAPI port for Django, not all of FastAPI functionalities are supported.
 
-Bug reports / Fix PRs are welcomed.
+Please see [Features currently work](#features-currently-work) and [Features currently not work](#features-currently-not-work) sections to evaluate if all the functionalities you need are ported.
 
+Also, bug reports / Fix PRs are welcomed.
 
 # Installation
 
@@ -115,10 +116,11 @@ People who like the way FastAPI works but don't want to do full system rewrite f
 * Auto OpenAPI schema/document generation from Python function declaration
 * Auto request parameter validation
 * Dependencies system
+* Authentication (Security dependencies)
 
 # Features currently not work
 * Auto OpenAPI parameters parsing & processing
   * Callback function delcearation (WIP)
-  * Security scopes (Evaluating/Planning)
+  * ~~Security dependencies (Evaluating/Planning)~~ (done)
 * WebSocket endpoints (Not in priority)
 * Backgournd tasks (Not in priority, we still use celery even using the real FastAPI. Background task execution function in FastAPI isn't very suitable for serious tasks.)
