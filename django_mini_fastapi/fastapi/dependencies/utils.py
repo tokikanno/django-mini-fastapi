@@ -27,10 +27,11 @@ from ..concurrency import (
 from .models import Dependant, SecurityRequirement
 from ..logger import logger
 
-# from fastapi.security.base import SecurityBase
-# from fastapi.security.oauth2 import OAuth2, SecurityScopes
-# from fastapi.security.open_id_connect_url import OpenIdConnect
-from ..mock import SecurityBase, OAuth2, SecurityScopes, OpenIdConnect
+from ..security.base import SecurityBase
+from ..security.oauth2 import OAuth2, SecurityScopes
+from ..security.open_id_connect_url import OpenIdConnect
+
+# from ..mock import SecurityBase, OAuth2, SecurityScopes, OpenIdConnect
 
 from ..utils import create_response_field, get_path_param_names
 from pydantic import BaseModel, create_model

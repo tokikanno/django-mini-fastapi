@@ -218,7 +218,8 @@ def get_request_handler(
                     body_bytes = request.body
                     if body_bytes:
                         json_body: Any = Undefined
-                        content_type_value = request.META.get("content-type")
+                        # content_type_value = request.META.get("content-type")
+                        content_type_value = request.META.get("CONTENT_TYPE")
                         if not content_type_value:
                             json_body = json.loads(body_bytes)
                         else:

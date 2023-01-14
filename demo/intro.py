@@ -4,6 +4,11 @@ from typing import List, Optional
 
 from django.http.response import Http404
 
+from django_mini_fastapi.fastapi.security.oauth2 import OAuth2PasswordRequestForm
+from django_mini_fastapi.fastapi.security import OAuth2PasswordBearer
+from django_mini_fastapi.fastapi.exceptions import HTTPException
+from django_mini_fastapi.fastapi.security.api_key import APIKeyHeader
+
 try:
     from django import setup as django_setup
 except ImportError:
@@ -478,3 +483,86 @@ def non_return_dependencies():
     ```
     """
     return {"msg": "You have correct API key!"}
+
+
+passowrd_bearer = OAuth2PasswordBearer("login")
+
+
+@api.get(
+    "/password_bearer",
+    tags=["2. Authentication"],
+    summary="Basic OAuth authentication",
+)
+def demo_password_bearer(token: str = Depends(passowrd_bearer)):
+    """
+    For checking authenticattion by basic OAuth2 username/password flow, you could use OAuth2PasswordBearer
+
+    ```python
+    from django_mini_fastapi.fastapi.security import OAuth2PasswordBearer
+
+    # the "login" str is a relative URL for indicate where the OAuth token fetching url is
+    # if no password bearer provided, it will tell client where to login
+    # use guest / 123 for login
+    passowrd_bearer = OAuth2PasswordBearer("login")
+
+    @api.get(
+        "/password_bearer",
+        tags=["2. Authentication"],
+        summary="Basic OAuth authentication",
+    )
+    def demo_password_bearer(token: str = Depends(passowrd_bearer)):
+        # you should do some token validation here
+        return {"token": token}
+    ```
+    """
+    # you should do some token validation here
+    return {"token": token}
+
+
+api_key = APIKeyHeader(name="Authorization", auto_error=True)
+
+
+@api.get("/api_key", tags=["2. Authentication"], summary="Basic API Key check demo")
+def demo_api_key_check(token: str = Depends(api_key)):
+    """
+    For checking any API key based authentication, you must specified API key position first, then use depends for getting it.
+
+    ```python
+    from django_mini_fastapi.fastapi.security.api_key import APIKeyHeader
+
+    # API key is in header
+    api_key = APIKeyHeader(name="Authorization", auto_error=True)
+    # with auto_error = True, APIKeyHeader will auto raise 403 error if API key not exists
+    # you could set it to False for making an optional API key check
+    optional_api_key = APIKeyHeader(name="Authorization", auto_error=True)
+
+    @api.get("/api_key", tags=["2. Authentication"], summary="Basic API Key check demo")
+    def demo_api_key_check(token: str = Depends(api_key)):
+        # you should do some token validation here
+        return {"token": token}
+    ```
+    """
+    # you should do some token validation here
+    return {"token": token}
+
+
+@api.post(
+    "/login",
+    tags=["2. Authentication"],
+    summary="A demo login endpoint for OAuth2PasswordBearer",
+    include_in_schema=False,
+)
+def login_with_username_password(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+    A demo login endpoint for OAuth2PasswordBearer
+
+    This endpoint won't show in OpenAPI(Swagger) document
+    """
+
+    if form_data.username != "guest" or form_data.password != "123":
+        raise HTTPException(status_code=400, detail="login failed")
+
+    return {
+        "access_token": "thisisafaketoken",
+        "token_type": "bearer",
+    }
