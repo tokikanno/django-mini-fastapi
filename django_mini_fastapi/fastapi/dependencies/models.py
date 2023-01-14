@@ -1,7 +1,8 @@
 from typing import Any, Callable, List, Optional, Sequence
 
-# from fastapi.security.base import SecurityBase
-from ..mock import SecurityBase
+from ..security.base import SecurityBase
+
+# from ..mock import SecurityBase
 
 from pydantic.fields import ModelField
 
